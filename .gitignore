@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDEs and OS
+.idea/
+.vscode/
+.DS_Store
+
+# Jupyter / Data
+.ipynb_checkpoints
+*.db
+*.sqlite
+*.log
+
+# Node frontend (if you later add JS visualisation)
+node_modules/
+dist/
+npm-debug.log*
+
+# Drafts
+drafts/
