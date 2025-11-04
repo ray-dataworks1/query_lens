@@ -1,0 +1,8 @@
+# Core parsing library
+ply==3.11
+
+# Developer utilities
+pytest>=7.0.0
+
+# Optional: readability and pretty-printing (good for AST output)
+rich>=13.0.0
