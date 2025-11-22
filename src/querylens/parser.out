@@ -1,0 +1,247 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> query
+Rule 1     query -> select_clause from_clause where_clause_opt
+Rule 2     where_clause_opt -> WHERE condition
+Rule 3     where_clause_opt -> empty
+Rule 4     select_clause -> SELECT STAR
+Rule 5     select_clause -> SELECT column_list
+Rule 6     column_list -> ID
+Rule 7     column_list -> column_list COMMA ID
+Rule 8     from_clause -> FROM ID
+Rule 9     condition -> ID EQ INT
+Rule 10    condition -> ID EQ STRING
+Rule 11    condition -> ID GT INT
+Rule 12    condition -> ID LT INT
+Rule 13    empty -> <empty>
+
+Terminals, with rules where they appear
+
+COMMA                : 7
+EQ                   : 9 10
+FROM                 : 8
+GT                   : 11
+ID                   : 6 7 8 9 10 11 12
+INT                  : 9 11 12
+LT                   : 12
+SELECT               : 4 5
+STAR                 : 4
+STRING               : 10
+WHERE                : 2
+error                : 
+
+Nonterminals, with rules where they appear
+
+column_list          : 5 7
+condition            : 2
+empty                : 3
+from_clause          : 1
+query                : 0
+select_clause        : 1
+where_clause_opt     : 1
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . query
+    (1) query -> . select_clause from_clause where_clause_opt
+    (4) select_clause -> . SELECT STAR
+    (5) select_clause -> . SELECT column_list
+
+    SELECT          shift and go to state 3
+
+    query                          shift and go to state 1
+    select_clause                  shift and go to state 2
+
+state 1
+
+    (0) S' -> query .
+
+
+
+state 2
+
+    (1) query -> select_clause . from_clause where_clause_opt
+    (8) from_clause -> . FROM ID
+
+    FROM            shift and go to state 5
+
+    from_clause                    shift and go to state 4
+
+state 3
+
+    (4) select_clause -> SELECT . STAR
+    (5) select_clause -> SELECT . column_list
+    (6) column_list -> . ID
+    (7) column_list -> . column_list COMMA ID
+
+    STAR            shift and go to state 6
+    ID              shift and go to state 8
+
+    column_list                    shift and go to state 7
+
+state 4
+
+    (1) query -> select_clause from_clause . where_clause_opt
+    (2) where_clause_opt -> . WHERE condition
+    (3) where_clause_opt -> . empty
+    (13) empty -> .
+
+    WHERE           shift and go to state 10
+    $end            reduce using rule 13 (empty -> .)
+
+    where_clause_opt               shift and go to state 9
+    empty                          shift and go to state 11
+
+state 5
+
+    (8) from_clause -> FROM . ID
+
+    ID              shift and go to state 12
+
+
+state 6
+
+    (4) select_clause -> SELECT STAR .
+
+    FROM            reduce using rule 4 (select_clause -> SELECT STAR .)
+
+
+state 7
+
+    (5) select_clause -> SELECT column_list .
+    (7) column_list -> column_list . COMMA ID
+
+    FROM            reduce using rule 5 (select_clause -> SELECT column_list .)
+    COMMA           shift and go to state 13
+
+
+state 8
+
+    (6) column_list -> ID .
+
+    COMMA           reduce using rule 6 (column_list -> ID .)
+    FROM            reduce using rule 6 (column_list -> ID .)
+
+
+state 9
+
+    (1) query -> select_clause from_clause where_clause_opt .
+
+    $end            reduce using rule 1 (query -> select_clause from_clause where_clause_opt .)
+
+
+state 10
+
+    (2) where_clause_opt -> WHERE . condition
+    (9) condition -> . ID EQ INT
+    (10) condition -> . ID EQ STRING
+    (11) condition -> . ID GT INT
+    (12) condition -> . ID LT INT
+
+    ID              shift and go to state 15
+
+    condition                      shift and go to state 14
+
+state 11
+
+    (3) where_clause_opt -> empty .
+
+    $end            reduce using rule 3 (where_clause_opt -> empty .)
+
+
+state 12
+
+    (8) from_clause -> FROM ID .
+
+    WHERE           reduce using rule 8 (from_clause -> FROM ID .)
+    $end            reduce using rule 8 (from_clause -> FROM ID .)
+
+
+state 13
+
+    (7) column_list -> column_list COMMA . ID
+
+    ID              shift and go to state 16
+
+
+state 14
+
+    (2) where_clause_opt -> WHERE condition .
+
+    $end            reduce using rule 2 (where_clause_opt -> WHERE condition .)
+
+
+state 15
+
+    (9) condition -> ID . EQ INT
+    (10) condition -> ID . EQ STRING
+    (11) condition -> ID . GT INT
+    (12) condition -> ID . LT INT
+
+    EQ              shift and go to state 17
+    GT              shift and go to state 18
+    LT              shift and go to state 19
+
+
+state 16
+
+    (7) column_list -> column_list COMMA ID .
+
+    COMMA           reduce using rule 7 (column_list -> column_list COMMA ID .)
+    FROM            reduce using rule 7 (column_list -> column_list COMMA ID .)
+
+
+state 17
+
+    (9) condition -> ID EQ . INT
+    (10) condition -> ID EQ . STRING
+
+    INT             shift and go to state 20
+    STRING          shift and go to state 21
+
+
+state 18
+
+    (11) condition -> ID GT . INT
+
+    INT             shift and go to state 22
+
+
+state 19
+
+    (12) condition -> ID LT . INT
+
+    INT             shift and go to state 23
+
+
+state 20
+
+    (9) condition -> ID EQ INT .
+
+    $end            reduce using rule 9 (condition -> ID EQ INT .)
+
+
+state 21
+
+    (10) condition -> ID EQ STRING .
+
+    $end            reduce using rule 10 (condition -> ID EQ STRING .)
+
+
+state 22
+
+    (11) condition -> ID GT INT .
+
+    $end            reduce using rule 11 (condition -> ID GT INT .)
+
+
+state 23
+
+    (12) condition -> ID LT INT .
+
+    $end            reduce using rule 12 (condition -> ID LT INT .)
+
